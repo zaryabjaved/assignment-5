@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="bootstrap.css" rel="stylesheet" />
+    <script src="jquery-3.4.1.js"></script>
+</head>
+<body>
+    <div class="container">
+        <button type="button" class="btn btn-primary">Load Employees Data</button>
+        <table class="table table-hover">
+            <thead>
+                <tr><th>Name</th><th>Regno</th><th>Cgpa</th></tr>
+            </thead>
+            <tbody id="emptbody"></tbody>
+        </table>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("button").click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/GetData",
+                    success: function (res) {
+                        for (r in res) {
+                            $("#emptbody").append("<tr><td>" + res[r].Name + "</td><td>" + res[r].Rgno + "<tr></td>" + res[r].Cgpa + "</td></tr>");
+                        }
+                    },
+                    failure: function (res) {
+                        alert("Failed");
+                    },
+                    error: function (res) {
+                        for (r in res) {
+                            $("#emptbody").append("<tr><td>" + res[r].Name + "</td><td>" + res[r].Rgno + "<td><td>" + res[r].Cgpa + "</td></tr>");
+                        }
+
+                    },
+                });
+
+
+            });
+        });
+        
+     </script>
+</body>
+</html >
